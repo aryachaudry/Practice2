@@ -4,10 +4,12 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -31,7 +33,7 @@ Spark m_frontRight = new Spark(3);
 Spark m_rearRight = new Spark(4);
 SpeedControllerGroup m_right = new SpeedControllerGroup(m_frontRight, m_rearRight);
 DifferentialDrive m_drive = new DifferentialDrive(m_frontRight, m_rearRight);
-
+DigitalInput limitswDigitalInput = new DigitalInput(1);
 private final Joystick driveStick = new Joystick(0);
 
   /**
@@ -96,7 +98,12 @@ private final Joystick driveStick = new Joystick(0);
   public void teleopPeriodic() {
 
   m_drive.arcadeDrive(-driveStick.getY(), driveStick.getX());
+  if (limitswDigitalInput.get()) {
+      System.out.println("Switch pressed!");
   
+  
+    }
+        
   }
   /** This function is called once when the robot is disabled. */
   @Override
