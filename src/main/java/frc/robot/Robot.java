@@ -4,15 +4,20 @@
 
 package frc.robot;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.ColorSensorV3;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.Controller;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Spark;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Ultrasonic;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -25,16 +30,14 @@ public class Robot extends TimedRobot {
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
-Spark m_frontLeft = new Spark(1);
-Spark m_rearLeft = new Spark(2);
-SpeedControllerGroup m_left = new SpeedControllerGroup(m_frontLeft, m_rearLeft);
-
-Spark m_frontRight = new Spark(3);
-Spark m_rearRight = new Spark(4);
-SpeedControllerGroup m_right = new SpeedControllerGroup(m_frontRight, m_rearRight);
-DifferentialDrive m_drive = new DifferentialDrive(m_frontRight, m_rearRight);
 DigitalInput limitswDigitalInput = new DigitalInput(1);
 private final Joystick driveStick = new Joystick(0);
+
+CANSparkMax motor =  new CANSparkMax(0, MotorType.kBrushless);
+CANSparkMax motor2 = new CANSparkMax(1, MotorType.kBrushless);
+
+
+
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -45,7 +48,7 @@ private final Joystick driveStick = new Joystick(0);
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
-    m_left.setInverted(true);
+
   }
 
   /**
@@ -96,15 +99,21 @@ private final Joystick driveStick = new Joystick(0);
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-
-  m_drive.arcadeDrive(-driveStick.getY(), driveStick.getX());
   if (limitswDigitalInput.get()) {
-      System.out.println("Switch pressed!");
-  
-  
-    }
-        
+      //SmartDashboard.putString("")
+      
+}
+    else {
+      SmartDashboard.putString("Limit switch", "False");
+    }  
+   
+
+color = cs.getColor();
+SmartDashboard.putString("Color", color);
+
   }
+   
+  
   /** This function is called once when the robot is disabled. */
   @Override
   public void disabledInit() {}
