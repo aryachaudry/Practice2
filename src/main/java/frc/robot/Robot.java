@@ -8,7 +8,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.Controller;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -108,8 +107,8 @@ CANSparkMax motor2 = new CANSparkMax(1, MotorType.kBrushless);
     }  
    
 
-color = cs.getColor();
-SmartDashboard.putString("Color", color);
+//color = cs.getColor();
+//SmartDashboard.putString("Color", color);
 
   }
    
